@@ -162,4 +162,29 @@ public class FluxTests {
                 .expectNext("Barbossa eats Apples")
                 .verifyComplete();
     }
+
+    @Test
+    public void firstWithSignalFlux() {
+        Flux<String> slowFlux = Flux.just("tortoise", "snail", "slotch")
+                .delaySubscription(Duration.ofMillis(250));
+        Flux<String> fastFlux = Flux.just("hare", "cheetah", "squirrel");
+
+        Flux<String> firstFlux = Flux.firstWithSignal(slowFlux, fastFlux);
+
+        StepVerifier.create(firstFlux)
+                .expectNext("hare")
+                .expectNext("cheetah")
+                .expectNext("squirrel")
+                .verifyComplete();
+    }
+
+    @Test
+    public void skipAFew() {
+        Flux<String> countFlux = Flux.just("one", "two", "three", "ninety one", "ten")
+                .skip(3);
+
+        StepVerifier.create(countFlux)
+                .expectNext("ninety one", "ten")
+                .verifyComplete();
+    }
 }
