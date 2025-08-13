@@ -1,6 +1,5 @@
 package kz.shyngys.reactive;
 
-import org.assertj.core.groups.Tuple;
 import org.junit.jupiter.api.Test;
 import reactor.core.publisher.Flux;
 import reactor.test.StepVerifier;
@@ -29,7 +28,7 @@ public class FluxTests {
 
     @Test
     public void createAFlux_fromArray() {
-        String[] fruits = new String[] {"Apple", "Orange", "Grape", "Banana", "Strawberry"};
+        String[] fruits = new String[]{"Apple", "Orange", "Grape", "Banana", "Strawberry"};
         Flux<String> fruitFlux = Flux.fromArray(fruits);
 
         StepVerifier.create(fruitFlux)
